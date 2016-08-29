@@ -1,0 +1,29 @@
+{
+    "name": "jiaojie/laravel5-access-logger",
+    "description": "laravel logger access",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "JIAO Jie",
+            "email": "thomasjiao@vip.qq.com"
+        }
+    ],
+    "require": {
+    	"php": ">=5.4.0",
+    	"laravel/framework": "~5.0.16",
+    	"monolog/monolog": "~1.18",
+    	"predis/predis": "~1.0"
+    },
+    "require-dev": {
+    	"phpunit/phpunit": "~4.0",
+		"phpspec/phpspec": "~2.1",
+		"mockery/mockery": "~0.9.1"
+    },
+    "autoload": {
+    	"psr-4": {
+    		"Jiaojie\\Laravel\\AccessLogger": "src/Jiaojie/Laravel/AccessLogger"
+    	}
+    },
+    "minimum-stability": "dev"
+}
