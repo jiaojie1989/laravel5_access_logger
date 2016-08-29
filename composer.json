@@ -1,9 +1,9 @@
 {
     "name": "jiaojie/laravel5-access-logger",
-    "description": "laravel logger access",
+    "description": "Uri access logger for laravel 5.0, made by SINA finance client api team.",
     "type": "library",
     "license": "MIT",
-    "homepage": "",
+    "homepage": "https://github.com/jiaojie1989/laravel5_access_logger",
     "authors": [
         {
             "name": "JIAO Jie",
@@ -11,20 +11,23 @@
         }
     ],
     "require": {
-    	"php": ">=5.4.0",
-    	"laravel/framework": "~5.0.16",
-    	"monolog/monolog": "~1.18",
-    	"predis/predis": "~1.0"
+        "php": ">=5.4.0",
+        "laravel/framework": "~5.0.16",
+        "monolog/monolog": "~1.18",
+        "predis/predis": "~1.0"
     },
     "require-dev": {
-    	"phpunit/phpunit": "~4.0",
-		"phpspec/phpspec": "~2.1",
-		"mockery/mockery": "~0.9.1"
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "~2.1",
+        "mockery/mockery": "~0.9.1"
     },
     "autoload": {
-    	"psr-4": {
-    		"Jiaojie\\Laravel\\AccessLogger\\": "src/Jiaojie/Laravel/AccessLogger"
-    	}
+        "psr-4": {
+            "Jiaojie\\Laravel\\AccessLogger\\": "src/AccesssLogger"
+        }
+    },
+    "config": {
+        "preferred-install": "dist"
     },
     "minimum-stability": "dev"
 }
