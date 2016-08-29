@@ -39,7 +39,10 @@ class Access {
         $this->uri = $request->path();
         $this->method = $request->method();
         $this->ips = $request->getClientIps();
-        $this->queryString = $request->getQueryString();
+        $this->queryString = [
+            "GET" => $request->getQueryString(),
+            "POST" => $request->getContent(),
+        ];
         $this->queryTime = time();
     }
 
