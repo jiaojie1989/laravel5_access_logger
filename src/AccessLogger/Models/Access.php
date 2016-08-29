@@ -27,6 +27,8 @@ use Illuminate\Http\Request;
  */
 class Access {
 
+    use SerializesModels;
+
     protected $uri;
     protected $method;
     protected $ips;
@@ -34,7 +36,7 @@ class Access {
     protected $queryTime;
 
     public function __construct(Request $request) {
-        $this->uri = $request->getRequestUri();
+        $this->uri = $request->path();
         $this->method = $request->method();
         $this->ips = $request->getClientIps();
         $this->queryString = $request->getQueryString();

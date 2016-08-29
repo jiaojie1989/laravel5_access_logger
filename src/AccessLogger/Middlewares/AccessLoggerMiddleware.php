@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Jiaojie\Laravel\AccessLogger\Models\Access;
 use Jiaojie\Laravel\AccessLogger\Events\AccessLoggerEvent;
 use Event;
+use Closure;
 
 /**
  * Description of AccessLoggerMiddleware

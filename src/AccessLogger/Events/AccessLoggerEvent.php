@@ -39,9 +39,9 @@ class AccessLoggerEvent extends Event {
     public function __construct(Access $access) {
         $this->model = $access;
     }
-    
+
     public function recordAccess() {
-        dump($this->model);
+        
     }
 
 }
