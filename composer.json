@@ -3,6 +3,7 @@
     "description": "laravel logger access",
     "type": "library",
     "license": "MIT",
+    "homepage": "",
     "authors": [
         {
             "name": "JIAO Jie",
@@ -22,7 +23,7 @@
     },
     "autoload": {
     	"psr-4": {
-    		"Jiaojie\\Laravel\\AccessLogger": "src/Jiaojie/Laravel/AccessLogger"
+    		"Jiaojie\\Laravel\\AccessLogger\\": "src/Jiaojie/Laravel/AccessLogger"
     	}
     },
     "minimum-stability": "dev"
