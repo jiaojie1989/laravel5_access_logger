@@ -16,6 +16,7 @@ namespace Jiaojie\Laravel\AccessLogger\Events;
 use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Jiaojie\Laravel\AccessLogger\Models\Access;
+use SinaRedis;
 
 /**
  * Description of AccessLoggerEvent
@@ -41,7 +42,10 @@ class AccessLoggerEvent extends Event {
     }
 
     public function recordAccess() {
-        
+        $conn = SinaRedis::connection("event");
+        $date = strtotime($this->model->queryTime);
+        $conn->hincrby("finApi:{$date}", $this->model->uri, 1);
+        $conn->pfadd("finApi:ips:{$date}", json_encode($this->model->ips));
     }
 
 }
