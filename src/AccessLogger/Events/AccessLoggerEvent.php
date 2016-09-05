@@ -42,10 +42,15 @@ class AccessLoggerEvent extends Event {
     }
 
     public function recordAccess() {
-        $conn = SinaRedis::connection("event");
-        $date = strtotime($this->model->queryTime);
-        $conn->hincrby("finApi:{$date}", $this->model->uri, 1);
-        $conn->pfadd("finApi:ips:{$date}", json_encode($this->model->ips));
+        /*
+         * Works only in cli application to filter SYNC type queue.
+         */
+        if ("cli" === php_sapi_name()) {
+            $conn = SinaRedis::connection("event");
+            $date = strtotime($this->model->queryTime);
+            $conn->hincrby("finApi:{$date}", $this->model->uri, 1);
+            $conn->pfadd("finApi:ips:{$date}", json_encode($this->model->ips));
+        }
     }
 
 }
