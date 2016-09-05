@@ -47,7 +47,7 @@ class AccessLoggerEvent extends Event {
          */
         if ("cli" === php_sapi_name()) {
             $conn = SinaRedis::connection("event");
-            $date = strtotime($this->model->queryTime);
+            $date = date("Y-m-d", strtotime($this->model->queryTime));
             $conn->hincrby("finApi:{$date}", $this->model->uri, 1);
             $conn->pfadd("finApi:ips:{$date}", json_encode($this->model->ips));
         }
