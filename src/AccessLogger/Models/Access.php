@@ -34,6 +34,7 @@ class Access {
     protected $ips;
     protected $queryString;
     protected $queryTime;
+    protected $ua;
 
     public function __construct(Request $request) {
         $this->uri = $request->path();
@@ -44,6 +45,7 @@ class Access {
             "POST" => $request->getContent(),
         ];
         $this->queryTime = time();
+        $this->ua = $request->server->get("HTTP_USER_AGENT", "Default");
     }
 
     public function __get($name) {
