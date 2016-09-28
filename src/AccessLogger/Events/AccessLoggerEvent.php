@@ -59,7 +59,7 @@ class AccessLoggerEvent extends Event {
             $accessLogModel->ips = json_encode($this->model->ips);
             $accessLogModel->queryString = json_encode($this->model->queryString);
             $accessLogModel->queryTime = date("Y-m-d H:i:s", $this->model->queryTime);
-            $accessLogModel->userAgent = $this->model->ua;
+            $accessLogModel->userAgent = substr(strval($this->model->ua), 0, 254);
             $accessLogModel->save();
         }
     }
