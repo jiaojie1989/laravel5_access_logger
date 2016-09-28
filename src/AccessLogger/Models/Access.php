@@ -44,7 +44,8 @@ class Access {
             "GET" => $request->getQueryString(),
             "POST" => $request->getContent(),
         ];
-        $this->queryTime = time();
+        $this->queryTime = $request->server->get("REQUEST_TIME", time());
+        $this->queryTime = !empty($this->queryTime) ? $this->queryTime : time();
         $this->ua = $request->server->get("HTTP_USER_AGENT", "Default");
     }
 
