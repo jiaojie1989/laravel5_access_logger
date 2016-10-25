@@ -18,6 +18,7 @@ use Illuminate\Queue\SerializesModels;
 use Jiaojie\Laravel\AccessLogger\Models\Access;
 use SinaRedis;
 use Jiaojie\Laravel\AccessLogger\Models\AccessLog;
+use Log;
 
 /**
  * Description of AccessLoggerEvent
@@ -51,16 +52,20 @@ class AccessLoggerEvent extends Event {
             $date = date("Y-m-d", $this->model->queryTime);
             $conn->hincrby("finApi:{$date}", $this->model->uri, 1);
             $conn->pfadd("finApi:ips:{$date}", json_encode($this->model->ips));
-
-            $accessLogModel = new AccessLog();
-            $accessLogModel->setTable(AccessLog::TABLE_PREFIX . date("Y_m", $this->model->queryTime));
-            $accessLogModel->uri = $this->model->uri;
-            $accessLogModel->method = $this->model->method;
-            $accessLogModel->ips = json_encode($this->model->ips);
-            $accessLogModel->queryString = json_encode($this->model->queryString);
-            $accessLogModel->queryTime = date("Y-m-d H:i:s", $this->model->queryTime);
-            $accessLogModel->userAgent = substr(strval($this->model->ua), 0, 254);
-            $accessLogModel->save();
+            try {
+                $accessLogModel = new AccessLog;
+                $tableName = (date("Ym") > 201610) ? (AccessLog::TABLE_PREFIX . date("Ym", $this->model->queryTime)) : (AccessLog::TABLE_PREFIX . date("Y_m", $this->model->queryTime));
+                $accessLogModel->setTable($tableName);
+                $accessLogModel->uri = substr($this->model->uri, 0, 127);
+                $accessLogModel->method = $this->model->method;
+                $accessLogModel->ips = json_encode($this->model->ips);
+                $accessLogModel->queryString = json_encode($this->model->queryString);
+                $accessLogModel->queryTime = date("Y-m-d H:i:s", $this->model->queryTime);
+                $accessLogModel->userAgent = substr(strval($this->model->ua), 0, 1023);
+                $accessLogModel->save();
+            } catch (\Exception $e) {
+                Log::warning("Error Dealing LOGS: " . $e->getMessage());
+            }
         }
     }
 

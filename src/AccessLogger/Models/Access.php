@@ -41,8 +41,8 @@ class Access {
         $this->method = $request->method();
         $this->ips = $request->getClientIps();
         $this->queryString = [
-            "GET" => $request->getQueryString(),
-            "POST" => $request->getContent(),
+            "GET" => base64_encode($request->getQueryString()),
+            "POST" => base64_encode($request->getContent()),
         ];
         $this->queryTime = $request->server->get("REQUEST_TIME", time());
         $this->queryTime = !empty($this->queryTime) ? $this->queryTime : time();
