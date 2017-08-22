@@ -18,6 +18,7 @@ use Jiaojie\Laravel\AccessLogger\Models\Access;
 use Jiaojie\Laravel\AccessLogger\Events\AccessLoggerEvent;
 use Event;
 use Closure;
+use Illuminate\Contracts\Routing\TerminableMiddleware;
 
 /**
  * Description of AccessLoggerMiddleware
@@ -28,12 +29,18 @@ use Closure;
  * @version 0.1
  * @description 
  */
-class AccessLoggerMiddleware {
+class AccessLoggerMiddleware implements TerminableMiddleware
+{
 
-    public function handle(Request $request, Closure $next) {
+    public function handle($request, Closure $next)
+    {
+        return $next($request);
+    }
+
+    public function terminate($request, $response)
+    {
         $event = new AccessLoggerEvent(new Access($request));
         Event::fire($event);
-        return $next($request);
     }
 
 }
